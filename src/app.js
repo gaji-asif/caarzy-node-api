@@ -1,7 +1,10 @@
-const express = require('express');
+import express from 'express';
+import orderRoutes from './routes/orderRoutes.js';
 
 const app = express();
 
 app.use(express.json());
 
-module.exports = app;
+app.use('/api', orderRoutes);
+
+export default app;

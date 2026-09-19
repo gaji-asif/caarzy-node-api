@@ -1,10 +1,10 @@
-const app = require('./app');
-const env = require('./config/env');
-const pool = require('./database/pool');
+import app from './app.js';
+import env from './config/env.js';
+import prisma from './database/prisma.js';
 
 async function startServer() {
     try {
-        await pool.query('SELECT 1');
+        await prisma.$queryRaw`SELECT 1`;
 
         console.log('Database connected successfully');
 

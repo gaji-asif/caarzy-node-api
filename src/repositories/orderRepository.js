@@ -1,14 +1,19 @@
 import prisma from '../database/prisma.js';
 
-async function findActiveReservationByCarId(carId) {
+async function findActiveOrderByCarId(carId) {
     return prisma.vehicle_orders.findFirst({
         where: {
             car_id: BigInt(carId),
-            order_type: 'reserve',
+
+            order_type: {
+                in: ['reserve', 'buy'],
+            },
+
             status: {
                 in: ['pending', 'approved'],
             },
         },
+
         select: {
             id: true,
             car_id: true,
@@ -19,5 +24,5 @@ async function findActiveReservationByCarId(carId) {
 }
 
 export default {
-    findActiveReservationByCarId,
+    findActiveOrderByCarId,
 };
